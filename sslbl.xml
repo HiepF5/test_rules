@@ -1,5 +1,29 @@
 <?xml version="1.0"?>
 <ruleset>
     <location url="https://sslbl.abuse.ch/blacklist/" prefix="abuse.ch"/>
-    
+    #!/bin/sh
+
+# Đường dẫn tới tệp trên server
+remote_file_url="https://raw.githubusercontent.com/HiepF5/test_rules/refs/heads/master/sslbl.xml"
+
+# Đường dẫn lưu trữ tệp trên máy local
+local_file="/usr/local/opnsense/scripts/suricata/metadata/rules/sslbl.xml"
+
+# Đường dẫn tạm để tải tệp mới về kiểm tra
+temp_file="/tmp/sslbl_new.xml"
+
+# Tải tệp về thư mục tạm
+curl -s -o "$temp_file" "$remote_file_url"
+
+# Kiểm tra mã băm (checksum) của tệp hiện tại và tệp mới
+if ! cmp -s "$local_file" "$temp_file"; then
+    # Nếu tệp mới khác, đồng bộ và thay thế tệp cũ
+    mv "$temp_file" "$local_file"
+    echo "$(date): Tệp sslbl.xml đã được cập nhật."
+else
+    echo "$(date): Tệp sslbl.xml không thay đổi."
+    # Xóa tệp tạm nếu không có thay đổi
+    rm "$temp_file"
+fi
+
 </ruleset>
