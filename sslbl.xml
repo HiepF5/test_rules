@@ -6,6 +6,10 @@
               description="SSL Fingerprint Blacklist"
               documentation_url="https://sslbl.abuse.ch/blacklist/"
         >abuse.ch.sslblacklist.rules</file>
+         <file url="https://sslbl.abuse.ch/blacklist/sslblacklist_tls_cert.rules"
+              description="SSL Fingerprint Blacklist"
+              documentation_url="https://sslbl.abuse.ch/blacklist/"
+        >abuse.ch.sslblacklist.rules</file>
         
     </files>
 </ruleset>
